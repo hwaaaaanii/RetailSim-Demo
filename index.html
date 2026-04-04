@@ -958,7 +958,7 @@ async function runSim(){
   });
   startParticles(['💬','❓','🗣️','💭'],[[50,30],[30,45],[70,45]]);
   setP('💬 Buyers chatting...');
-  await Promise.all(logs.map((bl,i)=>runQA(bl,i)));if(!playing)return;
+  await Promise.all(logs.map(async(bl,i)=>{await w((Math.random()*800)/speed);return runQA(bl,i);}));if(!playing)return;
   stopParticles();stageClearLines();
 
   // === STAGE: Deciding ===
@@ -974,7 +974,7 @@ async function runSim(){
     stageCharStatus(`charB${i}`,'Deciding');
   });
   setP('🤔 Deciding...');
-  await Promise.all(logs.map((bl,i)=>runDec(bl,i)));if(!playing)return;
+  await Promise.all(logs.map(async(bl,i)=>{await w((Math.random()*600)/speed);return runDec(bl,i);}));if(!playing)return;
 
   // Update stage with decisions — rich expressions
   logs.forEach((bl,i)=>{
@@ -1015,7 +1015,7 @@ async function runSim(){
   });
   stageLines(logs.map((bl,i)=>bl.purchase_decision.will_purchase?[50,22,buyerPositions[i].left,buyerPositions[i].top-15]:null).filter(Boolean),'rgba(231,76,60,.3)');
   setP('⚠️ Issue occurred...');
-  await Promise.all(logs.map((bl,i)=>runIssue(bl,i)));if(!playing)return;
+  await Promise.all(logs.map(async(bl,i)=>{await w((Math.random()*500)/speed);return runIssue(bl,i);}));if(!playing)return;
 
   // === STAGE: CS ===
   stageClearLines();
@@ -1031,7 +1031,7 @@ async function runSim(){
     }
   });
   setP('📞 Post-purchase...');
-  await Promise.all(logs.map((bl,i)=>runCS(bl,i)));if(!playing)return;
+  await Promise.all(logs.map(async(bl,i)=>{await w((Math.random()*1200)/speed);return runCS(bl,i);}));if(!playing)return;
 
   // Update after CS resolution
   stageClearLines();
@@ -1095,7 +1095,7 @@ async function runSim(){
     }
   });
   setP('⭐ Reviews...');
-  await Promise.all(logs.map((bl,i)=>runRev(bl,i)));
+  await Promise.all(logs.map(async(bl,i)=>{await w((Math.random()*500)/speed);return runRev(bl,i);}));
 
   // === STAGE: Done ===
   stopParticles();stageClearLines();
